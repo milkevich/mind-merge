@@ -1,0 +1,21 @@
+:root {
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    --main-bg-color: rgb(12, 12, 12);
+    --main-color: rgb(255, 255, 255);
+    --border-color: rgb(32, 32, 32);
+    --main-accent-color: rgb(100, 168, 252);
+
+    background-color: var(--main-bg-color);
+    color: var(--main-color);
+}
+
+body {
+    padding: 0;
+    margin: 0;
+}
