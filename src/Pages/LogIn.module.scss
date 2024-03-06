@@ -1,0 +1,96 @@
+.mainContainer {
+    max-width: 370px;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    text-align: center;
+}
+
+.infoEnterText {
+    color: var(--main-highlight-color);
+    margin-top: -10px;
+}
+
+.photoUpload {
+    margin: auto;
+    width: 102px;
+    height: 102px;
+    margin-top: -104px;
+    position: relative;
+    cursor: pointer;
+}
+
+.avatarContainer {
+    position: relative;
+    top: 50px;
+}
+
+.photoUploadButton {
+    padding: 11px 11px 7px 11px;
+    border-radius: 20px;
+    border: 1px solid var(--border-color);
+    outline: none;
+    cursor: pointer;
+    color: var(--highlight-color);
+    position: absolute;
+    top: 110px;
+    margin-left: 50px;
+    background-color: var(--main-highlight-bg-color);
+}
+
+
+.inputContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 50%;
+}
+
+.suggestion {
+    position: absolute;
+    bottom: 0;
+    margin-left: 75px;
+    padding-bottom: env(safe-area-inset-bottom);
+}
+
+.suggestion span {
+    color: var(--main-accent-color);
+    cursor: pointer;
+}
+
+.inputContainerTextFeild {
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    outline: none;
+    border-radius: 5px;
+    background-color: var(--main-bg-color);
+    color: var(--main-color);
+}
+
+.inputLabel {
+    text-align: left;
+    margin-bottom: 0px;
+    color: var(--main-color);
+    font-size: 14px;
+}
+
+.enterBtn {
+    height: 30px;
+    border: none;
+    background-color: var(--main-highlight-bg-color);
+    color: var(--main-color);
+    border-radius: 5px;
+    outline: none;
+    cursor: pointer;
+}
+
+.nextBtn {
+    height: 30px;
+    border: none;
+    background-color: var(--main-highlight-bg-color);
+    color: var(--main-color);
+    border-radius: 5px;
+    outline: none;
+    cursor: pointer;
+    margin-top: calc(100vh - 550px);
+}
