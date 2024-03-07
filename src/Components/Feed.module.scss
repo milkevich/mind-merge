@@ -1,6 +1,7 @@
 .feedContainer {
     margin-top: 20px;
     min-height: calc(100vh - 320px);
+    max-width: 1200px;
     height: 100%;
 }
 
@@ -9,16 +10,26 @@
     display: flex;
     align-items: start;
     border-bottom: 1px solid var(--border-color);
+    max-width: 900px;
 }
 
 .postContent {
     margin-top: -30px;
     margin-left: 20px;
+    width: 100%;
 }
 
 .postContentUser {
     font-size: 16px;
     margin-bottom: -10px;
+    flex: 1;
+}
+
+.postContentDate {
+    margin-bottom: -10px;
+    margin-right: 4px;
+    text-align: end;
+    color: var(--main-highlight-color);
 }
 
 .postActivityContainer {

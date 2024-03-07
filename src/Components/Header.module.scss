@@ -4,16 +4,24 @@
     position: relative;
 }
 
+.avatarContainer {
+    height: 100px;
+}
+
 .backdropImg {
     background-color: #b9b9b9;
+    background-size: cover;
+    scale: 4;
     width: 100%;
-    height: 100px;
+    height: 100vh;
     position: relative;
+    filter: blur(20px);
+    -webkit-filter: blur(20px);
 }
 
 .profileImg {
     position: absolute;
-    top: 60px;
+    top: -40px;
     left: 20px;
     border: 5px solid var(--main-bg-color);
 }

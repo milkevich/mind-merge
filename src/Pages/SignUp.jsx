@@ -8,7 +8,7 @@ import { updateProfile, createUserWithEmailAndPassword } from "firebase/auth";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { Avatar } from '@mui/material';
 import { doc, setDoc } from 'firebase/firestore';
-import s from './LogIn.module.scss'
+import s from './LogIn.module.scss';
 import { PiPlus } from "react-icons/pi";
 import Loader from '../Components/Loader';
 import Stepper from '@mui/material/Stepper';
@@ -24,30 +24,33 @@ function SignUp() {
   const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState(false);
   const [passwordErrorMessage, setPasswordErrorMessage] = useState('');
-  const [firstName, setFirstName] = useState(''); 
-  const [firstNameError, setFirstNameError] = useState(false); 
-  const [firstNameErrorMessage, setFirstNameErrorMessage] = useState(''); 
-  const [lastName, setLastName] = useState(''); 
-  const [lastNameError, setLastNameError] = useState(false); 
-  const [lastNameErrorMessage, setLastNameErrorMessage] = useState(''); 
+  const [firstName, setFirstName] = useState('');
+  const [firstNameError, setFirstNameError] = useState(false);
+  const [firstNameErrorMessage, setFirstNameErrorMessage] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [lastNameError, setLastNameError] = useState(false);
+  const [lastNameErrorMessage, setLastNameErrorMessage] = useState('');
+  const [username, setUsername] = useState('');
+  const [usernameError, setUsernameError] = useState(false);
+  const [usernameErrorMessage, setUsernameErrorMessage] = useState('');
   const [alert, setAlert] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
   const [file, setFile] = useState(null);
   const [fileURL, setFileURL] = useState(null);
-  const [success, setSuccess] = useState(false)
-  const [step, setStep] = useState(0)
-  const [welcomeText, setWelcomeText] = useState("Hey! What's your name?")
-  const [infoEnterText, setInfoEnterText] = useState("Please enter your both first and last name")
+  const [success, setSuccess] = useState(false);
+  const [step, setStep] = useState(0);
+  const [welcomeText, setWelcomeText] = useState("Hey! What's your name?");
+  const [infoEnterText, setInfoEnterText] = useState("Please enter your both first and last name");
 
   const navigate = useNavigate();
 
   const submit = async (e) => {
     e.preventDefault();
 
-    if (!emailError && !passwordError && !firstNameError && !lastNameError) {
+    if (!emailError && !passwordError && !firstNameError && !lastNameError && !usernameError) {
       try {
-        setSuccess(true)
+        setSuccess(true);
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
 
@@ -66,6 +69,7 @@ function SignUp() {
               lastName,
               email,
               password,
+              username,
               photoURL: downloadURL,
             });
 
@@ -74,32 +78,27 @@ function SignUp() {
         });
       } catch (error) {
         console.error("Error creating user:", error);
-        setAlert(true)
-        setAlertMessage('The user with this email already exists, try again.')
-        setSuccess(false)
+        setAlert(true);
+        setAlertMessage('The user with this email already exists, try again.');
+        setSuccess(false);
       }
     } else {
       if (emailError) {
         setAlert(true);
         setAlertMessage('Email address is not valid or already being used.');
-        setSuccess(false)
-
-      } else {
-        setAlert(false);
-        setAlertMessage('');
-      }
-      if (passwordError) {
+        setSuccess(false);
+      } else if (passwordError) {
         setAlert(true);
         setAlertMessage('Please enter a valid password.');
-        setSuccess(false)
-      } else {
-        setAlert(false);
-        setAlertMessage('');
-      }
-      if (firstNameError || lastNameError) {
+        setSuccess(false);
+      } else if (firstNameError || lastNameError) {
         setAlert(true);
         setAlertMessage('Please enter a name.');
-        setSuccess(false)
+        setSuccess(false);
+      } else if (usernameError) {
+        setAlert(true);
+        setAlertMessage('Please enter a valid username.');
+        setSuccess(false);
       } else {
         setAlert(false);
         setAlertMessage('');
@@ -166,13 +165,24 @@ function SignUp() {
     }
   };
 
-  const logIn = () => {
-    navigate('/mind-merge/log-in')
-  }
+  const usernameValidation = (e) => {
+    const usernameValue = e.target.value;
+    setUsername(usernameValue);
 
-  const steps = [
-    ' ', '', '  '
-  ];
+    if (usernameValue === '') {
+      setUsernameError(true);
+      setUsernameErrorMessage('You must enter a username.');
+    } else {
+      setUsernameError(false);
+      setUsernameErrorMessage('');
+    }
+  };
+
+  const logIn = () => {
+    navigate('/mind-merge/log-in');
+  };
+
+  const steps = [' ', '', '  ', '   '];
 
   const handleNext = () => {
     if (step < steps.length - 1) {
@@ -186,6 +196,10 @@ function SignUp() {
       setInfoEnterText('Please enter a valid email & password');
     }
     if (step === 2) {
+      setWelcomeText('Your Display Name');
+      setInfoEnterText('Please come up with your display name');
+    }
+    if (step === 3) {
       setWelcomeText('Upload a photo');
       setInfoEnterText('Please upload an avatar photo');
     }
@@ -199,36 +213,40 @@ function SignUp() {
       <div className={s.inputContainer}>
         {step === 0 ? (
           <>
-          <p className={s.inputLabel}>First Name</p>
-          <input
-            type="text"
-            placeholder="Enter first name"
-            className={s.inputContainerTextFeild}
-            error={firstNameError}
-            onChange={firstNameValidation}
-            value={firstName}
-          />
-          <p className={s.inputLabel}>Last Name</p>
-          <input
-            type="text"
-            placeholder="Enter last name"
-            className={s.inputContainerTextFeild}
-            error={lastNameError}
-            onChange={lastNameValidation}
-            value={lastName}
-          />
-        </>
+            <p className={s.inputLabel}>First Name</p>
+            <input
+              type="text"
+              placeholder="Enter first name"
+              className={s.inputContainerTextFeild}
+              error={firstNameError}
+              onChange={firstNameValidation}
+              value={firstName}
+            />
+            <p className={s.inputLabel}>Last Name</p>
+            <input
+              type="text"
+              placeholder="Enter last name"
+              className={s.inputContainerTextFeild}
+              error={lastNameError}
+              onChange={lastNameValidation}
+              value={lastName}
+            />
+          </>
         ) : null || step === 1 ? (
           <>
             <p className={s.inputLabel}>Email</p>
-            <input type="text" placeholder='Enter email'
+            <input
+              type="text"
+              placeholder='Enter email'
               className={s.inputContainerTextFeild}
               error={emailError.toString()}
               onChange={emailValidation}
               value={email}
             />
             <p className={s.inputLabel}>Password</p>
-            <input type="password" placeholder='Enter password'
+            <input
+              type="password"
+              placeholder='Enter password'
               className={s.inputContainerTextFeild}
               error={passwordError}
               onChange={passwordValidation}
@@ -236,9 +254,21 @@ function SignUp() {
             />
           </>
         ) : null || step === 2 ? (
+          <>
+            <p className={s.inputLabel}>Display name</p>
+            <input
+              type="text"
+              placeholder='Enter display name'
+              className={s.inputContainerTextFeild}
+              error={usernameError}
+              onChange={usernameValidation}
+              value={username}
+            />
+          </>
+        ) : null || step === 3 ? (
           <div className={s.avatarContainer}>
             <label htmlFor="fileInput">
-            <Avatar sx={{ width: "250px", height: "250px", position: "relative" }} src={fileURL} className={s.photoUpload}></Avatar>
+              <Avatar sx={{ width: "250px", height: "250px", position: "relative" }} src={fileURL} className={s.photoUpload}></Avatar>
             </label>
             <div style={{ marginBottom: "20px" }}>
               <input
@@ -249,12 +279,12 @@ function SignUp() {
                 id="fileInput"
               />
               <label htmlFor="fileInput" className={s.photoUploadButton}>
-                <HiIcons.HiOutlinePencil/>
+                <HiIcons.HiOutlinePencil />
               </label>
             </div>
           </div>
         ) : null}
-        <button onClick={step !== 2 ? handleNext : submit} className={s.nextBtn}>{step !== 2 ? 'Next' : 'Submit'}</button>
+        <button onClick={step !== 3 ? handleNext : submit} className={s.nextBtn}>{step !== 3 ? 'Next' : 'Submit'}</button>
         <div>
           <Stepper activeStep={step} alternativeLabel>
             {steps.map((label) => (
