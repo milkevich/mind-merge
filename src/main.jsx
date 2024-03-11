@@ -7,6 +7,8 @@ import SignUp from './Pages/SignUp.jsx';
 import Protected from './Protected.jsx';
 import UserContextProvider from './Contexts/UserContext.jsx';
 import Minds from './Components/Minds.jsx';
+import MindPage from './Components/MindPage.jsx';
+import Profile from './Components/Profile.jsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -16,6 +18,8 @@ const router = createBrowserRouter(
         <Route path='/mind-merge/sign-up' element={<SignUp />} />
         <Route element={<Protected />}>
           <Route path='/mind-merge/minds' element={<Minds />} />
+          <Route path={`/mind-merge/minds/mind/:mindId`} element={<MindPage />} />
+          <Route path={`/mind-merge/:username`} element={<Profile />} />
         </Route>
       </Route>
     </Route>

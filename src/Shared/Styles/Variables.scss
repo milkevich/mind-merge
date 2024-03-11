@@ -12,9 +12,13 @@
     --main-highlight-bg-color: rgb(34, 34, 34);
     --border-color: rgb(32, 32, 32);
     --main-accent-color: rgb(100, 168, 252);
+    --like-btn-color: #ff3040;
 
     background-color: var(--main-bg-color);
     color: var(--main-color);
+    ::-webkit-scrollbar {
+        display: none;
+    }
 }
 
 body {

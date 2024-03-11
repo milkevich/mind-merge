@@ -1,7 +1,33 @@
 .mainContainer {
     width: 100%;
-    height: 300px;
+    height: 230px;
     position: relative;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.sticky {
+    position: sticky;
+    top: -145px;
+    width: 935px;
+    background-color: rgba(12, 12, 12, 0.8);
+    backdrop-filter: blur(10px);
+    z-index: 99;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+
+.profileContainer {
+    width: 100%;
+    height: 230px;
+    position: relative;
+    top: 0;
+    margin-top: 0;
+}
+
+.stickyContainer {
+    position: sticky;
+    top: 50px;
 }
 
 .avatarContainer {
@@ -41,6 +67,14 @@
     line-height: 0.5;
     margin-top: 70px;
     padding-left: 20px;
+    height: 50px;
+}
+
+.stickyAvatar {
+    align-self: flex-end;
+    margin-left: auto;
+    margin-right: 20px;
+    margin-top: -55px;
 }
 
 .userInfoContainer h1 {
@@ -49,24 +83,90 @@
 
 .userInfoContainer p {
     color: var(--main-highlight-color);
+    cursor: pointer;
 }
 
 .inputContainer {
     display: flex;
     padding: 20px 20px 20px 20px;
-    margin-top: 30px;
-    border-top: 1px solid var(--border-color);
-    border-bottom: 1px solid var(--border-color);
     gap: 20px;
     position: relative;
 }
 
-.inputContainer input {
+.selectedMedia {
+    margin: 20px;
+    position: relative;
+    max-width: 300px;
+}
+
+.selectedMediaIcon {
+    position: absolute;
+    right: -10px;
+    top: -10px;
+    z-index: 10;
+    padding: 7px;
+    background-color: var(--main-bg-color);
+    border-radius: 50px;
+    border: 1px solid var(--border-color);
+    cursor: pointer;
+}
+
+.selectedMedia img {
+    border-radius: 5px;
+    position: relative;
+    min-width: 300px;
+    max-width: 300px;
+    z-index: 9;
+    scale: 1.05;
+}
+
+.selectedMediaHoverBackDrop:hover img {
+    opacity: 0.4; 
+    filter: blur(2px);
+    scale: 1.5;
+}
+
+img {
+    transition: 0.3s ease-in-out;
+}
+
+.deleteHoverIcon {
+    position: absolute;
+    z-index: 20;
+    font-size: 50px;
+    bottom: -70px;
+    right: calc(50% - 25px);
+    opacity: 0;
+    transition: 0.3s ease-in-out;
+}
+
+.selectedMediaHoverBackDrop {
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+    overflow: hidden;
+    position: relative;
+    border-radius: 5px;
+}
+
+.selectedMediaHoverBackDrop:hover .deleteHoverIcon {
+    bottom: calc(50% - 25px);
+    opacity: 1;
+}
+
+.inputContainer textarea {
+    min-height: 26px;
+    resize: none;
     flex: 1;
     background-color: var(--main-bg-color);
     border: none;
     outline: none;
     color: var(--main-color);
+    min-height: 26px;
+    max-height: 400px;
+    line-height: 20px;
+    align-items: center;
+    max-height: "400px";
+    padding-top: 10px;
 }
 
 .uploadIcon {
@@ -81,4 +181,6 @@
     outline: none;
     color: var(--main-accent-color);
     cursor: pointer;
+    position: relative;
+    top: 10px;
 }

@@ -1,78 +1,68 @@
-import React, { useEffect, useState } from 'react'
-import s from './Header.module.scss'
-import { Avatar } from '@mui/material'
-import * as HiIcons from 'react-icons/hi';
-import { useUserContext } from '../Contexts/UserContext'
-import { Timestamp, arrayUnion, doc, onSnapshot, setDoc, updateDoc } from 'firebase/firestore';
-import { db } from '../firebaseConfig';
+import React, { useEffect, useState } from 'react';
+import s from './Header.module.scss';
+import { Avatar, Tooltip } from '@mui/material';
 import Loader from './Loader';
-import { v4 as uuid } from 'uuid';
+import { useParams } from 'react-router-dom';
+import { collection, query, where, getDocs } from 'firebase/firestore';
+import { db } from '../firebaseConfig';
 
 const Header = () => {
-    const [userData, setUserData] = useState([])
-    const [loading, setLoading] = useState(true)
-    const [mind, setMind] = useState('')
-    const [minds, setMinds] = useState([])
-    const { user } = useUserContext();
-
+    const { username } = useParams();
+    const [userData, setUserData] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [isSticky, setIsSticky] = useState(false)
 
     useEffect(() => {
-        const getUserData = () => {
-          const unsub = onSnapshot(doc(db, "users", user.uid), (doc) => {
-            setUserData(doc.data());
-            setLoading(false)
-          });
-          return () => {
-            unsub();
-          };
+        const handleScroll = () => {
+            const offset = window.scrollY;
+            setIsSticky(offset > 145);
         };
-    
-        if (user && user.uid) {
-          getUserData();
+
+        window.addEventListener('scroll', handleScroll);
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
+
+    useEffect(() => {
+        const fetchUserData = async () => {
+            try {
+                const usersCollectionRef = collection(db, 'users');
+                const usersQuery = query(usersCollectionRef, where('username', '==', username));
+                const querySnapshot = await getDocs(usersQuery);
+
+                if (!querySnapshot.empty) {
+                    const userDoc = querySnapshot.docs[0];
+                    setUserData(userDoc.data());
+                } else {
+                    console.log('User data not found');
+                }
+            } catch (error) {
+                console.error('Error fetching user data:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        if (username) {
+            fetchUserData();
         }
-      }, [user]);
+    }, [username]);
 
-      
+    if (loading) {
+        return <Loader />;
+    }
 
-      const share = async (e) => {
-        e.preventDefault()
-        
-        const mindId = uuid();
+    const backgroundImage = userData.photoURL;
+    console.log('Background Image:', backgroundImage);
 
-        const mindRef = doc(db, 'minds', mindId);
-    
-        try {
-            await setDoc(mindRef, {
-                author: {
-                    uid: user.uid,
-                    firstName: userData.firstName,
-                    lastName: userData.lastName,
-                    photoURL: userData.photoURL
-                },
-                text: mind,
-                likes: 0,
-                comments: { 
-                    count: 0,
-                },
-                date: Timestamp.now(),
-            }); 
-            setMind('')
-            console.log('Mind shared successfully');
-        } catch (error) {
-            console.error('Error sharing mind:', error);
-        }
-    };
-
-    
-    const backgroundImage = userData.photoURL
 
     return (
-        <>
-        {loading && <Loader/>}
-        <div className={s.mainContainer}>
+        <div className={!isSticky ? `${s.mainContainer}` : `${s.sticky}`}>
             <div className={s.avatarContainer}>
                 <div style={{ overflow: "hidden", height: "100px" }}>
-                    <div style={{ background: `url(${backgroundImage})`, backgroundRepeat: "no-repeat" }} className={s.backdropImg}></div>
+                    <div style={{ backgroundImage: `url(${backgroundImage})`, backgroundRepeat: "no-repeat" }} className={s.backdropImg}></div>
                 </div>
                 <Avatar src={userData.photoURL} style={{ width: "80px", height: "80px" }} className={s.profileImg} />
             </div>
@@ -82,18 +72,21 @@ const Header = () => {
                 <p>smthsm</p>
             </div>
             <div className={s.userInfoContainer}>
-                <h1>{userData.firstName} {userData.lastName}</h1>
-                <p>@{userData.username}</p>
+                <div>
+                    <h1>{userData?.firstName} {userData?.lastName}</h1>
+                    <div onClick={() => {
+                        navigator.clipboard.writeText(`${userData.username}`)
+                    }} style={{ display: "flex", alignItems: "center", marginTop: "-10px" }}>
+                        <Tooltip title='Copy' placement='right'>
+                            <p>@{userData?.username}</p>
+                        </Tooltip>
+                    </div>
+                </div>
+                <Avatar style={{ display: isSticky ? 'flex' : 'none' }} className={s.stickyAvatar} src={userData?.photoURL} />
             </div>
-            <div className={s.inputContainer}>
-                <Avatar src={userData.photoURL} />
-                <input value={mind} onChange={(e) => setMind(e.target.value)} type="text" placeholder="What's up?" />
-                <HiIcons.HiOutlinePaperClip className={s.uploadIcon} />
-                <button onClick={share}>Share</button>
-            </div>
+
         </div>
-        </>
-    )
+    );
 }
 
-export default Header
+export default Header;

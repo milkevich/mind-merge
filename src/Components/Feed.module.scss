@@ -1,7 +1,6 @@
 .feedContainer {
-    margin-top: 20px;
     min-height: calc(100vh - 320px);
-    max-width: 1200px;
+    max-width: 935px;
     height: 100%;
 }
 
@@ -11,6 +10,7 @@
     align-items: start;
     border-bottom: 1px solid var(--border-color);
     max-width: 900px;
+    z-index: 10;
 }
 
 .postContent {
@@ -47,4 +47,110 @@
 .postActivityLabel {
     color: var(--main-highlight-color);
     padding-right: 10px;
+}
+
+.mindImg {
+    max-width: 300px;
+    max-height: 600px;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+.inputContainer {
+    display: flex;
+    height: 25px;
+    align-items: center;
+    padding: 20px;
+}
+
+.inputContainer input {
+    flex: 1;
+    background-color: var(--main-bg-color);
+    border: none;
+    outline: none;
+    color: var(--main-color);
+}
+
+.inputContainer p {
+    padding-left: 10px;
+    color: var(--main-accent-color);
+}
+.sharePopUpContainer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(3px);
+    z-index: 1000;
+}
+
+.sharePopUp {
+    width: 600px;
+    max-height: 400px;
+    background-color: var(--main-bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.hoverFade:hover {
+    opacity: 0.6;
+    cursor: pointer;
+}
+
+.postContentUserInfo {
+    display: flex;
+    align-items: end;
+    cursor: pointer;
+    color: var(--main-color);
+}
+
+.postContentUsername {
+    color: var(--main-highlight-color);
+}
+
+.postPageInputContainer {
+    position: sticky;
+    bottom: 0px;
+    width: 600px;
+    border: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+    background-color: var(--main-bg-color);
+    margin-left: -1px;
+}
+
+.shareLink {
+    max-width: calc(100% - 80px);
+    word-break: break-all;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap; 
+    background-color: var(--main-highlight-bg-color);
+    padding: 20px;
+    margin-left: 20px;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 5px;
+    color: var(--main-highlight-color);
+    margin-top: -10px;
+}
+
+.goBackBtnContainer {
+    padding: 0px 20px 20px 20px;
+}
+
+.goBackBtnContainer button {
+    width: 100%;
+    padding: 7px;
+    border: 1px solid var(--border-color);
+    outline: none;
+    border-radius: 5px;
+    background-color: var(--main-bg-color);
+    color: var(--main-color);
+    cursor: pointer;
 }
