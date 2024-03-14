@@ -9,6 +9,7 @@ import UserContextProvider from './Contexts/UserContext.jsx';
 import Minds from './Components/Minds.jsx';
 import MindPage from './Components/MindPage.jsx';
 import Profile from './Components/Profile.jsx';
+import Explore from './Components/Explore.jsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(

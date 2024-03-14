@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import s from './Header.module.scss';
-import { Avatar, Tooltip } from '@mui/material';
+import { Avatar, Fade, Tooltip } from '@mui/material';
 import Loader from './Loader';
 import { useParams } from 'react-router-dom';
 import { collection, query, where, getDocs } from 'firebase/firestore';
 import { db } from '../firebaseConfig';
+import * as HiIcons from 'react-icons/hi';
 
 const Header = () => {
     const { username } = useParams();
@@ -64,12 +65,10 @@ const Header = () => {
                 <div style={{ overflow: "hidden", height: "100px" }}>
                     <div style={{ backgroundImage: `url(${backgroundImage})`, backgroundRepeat: "no-repeat" }} className={s.backdropImg}></div>
                 </div>
-                <Avatar src={userData.photoURL} style={{ width: "80px", height: "80px" }} className={s.profileImg} />
+                <Avatar src={userData.photoURL} style={{ width: "80px", height: "80px", opacity: isSticky ? 0 : 1 }} className={s.profileImg} />
             </div>
             <div className={s.headerButtons}>
-                <p>smth</p>
-                <p>smthsmth</p>
-                <p>smthsm</p>
+                <p style={{ display: "flex", alignItems: "center", gap: "10px" }}><HiIcons.HiOutlineSwitchVertical /> Sort by</p>
             </div>
             <div className={s.userInfoContainer}>
                 <div>
@@ -82,7 +81,12 @@ const Header = () => {
                         </Tooltip>
                     </div>
                 </div>
-                <Avatar style={{ display: isSticky ? 'flex' : 'none' }} className={s.stickyAvatar} src={userData?.photoURL} />
+                <Fade timeout={1000} in={isSticky}>
+                <div>
+                    <Avatar style={{ display: isSticky ? 'flex' : 'none' }} className={s.stickyAvatar} src={userData?.photoURL} />
+                    <p style={{ display: "flex", alignItems: "center", gap: "10px", display: isSticky ? 'flex' : 'none', position: "absolute", right: "90px", bottom: "20px", color: "var(--main-color)" }}><HiIcons.HiOutlineSwitchVertical /> Sort by</p>
+                </div>
+                </Fade>
             </div>
 
         </div>

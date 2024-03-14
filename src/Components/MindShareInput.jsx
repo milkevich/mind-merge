@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import s from './Header.module.scss'
-import { Avatar } from '@mui/material'
+import { Avatar, LinearProgress } from '@mui/material'
 import * as HiIcons from 'react-icons/hi';
 import { useUserContext } from '../Contexts/UserContext'
 import { Timestamp, arrayUnion, doc, onSnapshot, setDoc, updateDoc } from 'firebase/firestore';
@@ -146,7 +146,8 @@ const MindShareInput = () => {
       </div>
       {uploadInProgress && progressPercent !== null && (
         <div>
-          <p>{progressPercent}%</p>
+          Publishing mind
+          <LinearProgress variant="determinate" value={50} />
         </div>
       )}
       {mindImg && !uploadInProgress && (

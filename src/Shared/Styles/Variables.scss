@@ -7,6 +7,7 @@
     -moz-osx-font-smoothing: grayscale;
 
     --main-bg-color: rgb(12, 12, 12);
+    --main-bg-color-opacity: rgba(12, 12, 12, 0.8);
     --main-color: rgb(255, 255, 255);
     --main-highlight-color: #666;
     --main-highlight-bg-color: rgb(34, 34, 34);
@@ -19,6 +20,17 @@
     ::-webkit-scrollbar {
         display: none;
     }
+}
+
+.light {
+    --main-bg-color: rgb(255, 255, 255);
+    --main-bg-color-opacity: rgba(255, 255, 255, 0.8);
+    --main-color: rgb(34, 34, 34);
+    --main-highlight-color: rgb(34, 34, 34);
+    --main-highlight-bg-color: rgb(210, 210, 210);
+    --border-color: rgb(225, 225, 225);
+    --main-accent-color: rgb(67, 150, 251);
+    --like-btn-color: #ff3040;
 }
 
 body {

@@ -29,4 +29,9 @@
 .containerItem {
     font-size: 21px;
     cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+.containerItem:hover {
+    scale: 0.9;
 }
