@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import s from './Header.module.scss';
 import { Avatar, Fade, Tooltip } from '@mui/material';
-import Loader from './Loader';
 import { useParams } from 'react-router-dom';
 import { collection, query, where, getDocs } from 'firebase/firestore';
 import { db } from '../firebaseConfig';
 import * as HiIcons from 'react-icons/hi';
+import Skeleton from '@mui/joy/Skeleton';
+
 
 const Header = () => {
     const { username } = useParams();
     const [userData, setUserData] = useState(null);
     const [loading, setLoading] = useState(true);
-    const [isSticky, setIsSticky] = useState(false)
+    const [isSticky, setIsSticky] = useState(false);
+    let backgroundImage = ''; 
 
     useEffect(() => {
         const handleScroll = () => {
@@ -51,44 +53,46 @@ const Header = () => {
         }
     }, [username]);
 
-    if (loading) {
-        return <Loader />;
+    if (!loading && userData) {
+        backgroundImage = userData?.photoURL;
+        console.log('Background Image:', backgroundImage);
     }
-
-    const backgroundImage = userData.photoURL;
-    console.log('Background Image:', backgroundImage);
-
 
     return (
         <div className={!isSticky ? `${s.mainContainer}` : `${s.sticky}`}>
             <div className={s.avatarContainer}>
-                <div style={{ overflow: "hidden", height: "100px" }}>
-                    <div style={{ backgroundImage: `url(${backgroundImage})`, backgroundRepeat: "no-repeat" }} className={s.backdropImg}></div>
-                </div>
-                <Avatar src={userData.photoURL} style={{ width: "80px", height: "80px", opacity: isSticky ? 0 : 1 }} className={s.profileImg} />
-            </div>
-            <div className={s.headerButtons}>
-                <p style={{ display: "flex", alignItems: "center", gap: "10px" }}><HiIcons.HiOutlineSwitchVertical /> Sort by</p>
+                <Skeleton sx={{ overflow: "hidden", height: "100px" }} loading={loading} variant='overlay'>
+                    <div style={{ overflow: "hidden", height: "100px" }}>
+                        <div style={{ backgroundImage: `url(${backgroundImage})`, backgroundRepeat: "no-repeat" }} className={s.backdropImg}></div>
+                    </div>
+                </Skeleton>
+                <Skeleton loading={loading} sx={{ position: "absolute", border: "5px solid var(--main-bg-color)", top: "60px", left: "20px", zIndex: "100" }} animation="wave" variant="circular" width={80} height={80}>
+                    <Avatar src={userData?.photoURL} style={{ width: "80px", height: "80px", opacity: isSticky ? 0 : 1 }} className={s.profileImg} />
+                </Skeleton>
             </div>
             <div className={s.userInfoContainer}>
                 <div>
-                    <h1>{userData?.firstName} {userData?.lastName}</h1>
-                    <div onClick={() => {
-                        navigator.clipboard.writeText(`${userData.username}`)
-                    }} style={{ display: "flex", alignItems: "center", marginTop: "-10px" }}>
-                        <Tooltip title='Copy' placement='right'>
-                            <p>@{userData?.username}</p>
-                        </Tooltip>
-                    </div>
+                    <Skeleton sx={{marginLeft: "20px"}} width={200} height={10} loading={loading} variant='text'>
+                        <h1 className={s.userInfoName}>{userData?.firstName} {userData?.lastName}</h1>
+                    </Skeleton>
+                    <Skeleton sx={{marginLeft: "20px"}} width={100} height={10} loading={loading} variant='text'>
+                        <div onClick={() => {
+                            navigator.clipboard.writeText(`${userData?.username}`)
+                        }} style={{ display: "flex", alignItems: "center", marginTop: "-5px" }}>
+                            <Tooltip title='Copy' placement='right-end'>
+                                <p style={{marginTop: "-10px"}} className={s.userInfoUsername}>@{userData?.username}</p>
+                            </Tooltip>
+                        </div>
+                    </Skeleton>
                 </div>
                 <Fade timeout={1000} in={isSticky}>
-                <div>
-                    <Avatar style={{ display: isSticky ? 'flex' : 'none' }} className={s.stickyAvatar} src={userData?.photoURL} />
-                    <p style={{ display: "flex", alignItems: "center", gap: "10px", display: isSticky ? 'flex' : 'none', position: "absolute", right: "90px", bottom: "20px", color: "var(--main-color)" }}><HiIcons.HiOutlineSwitchVertical /> Sort by</p>
-                </div>
+                    <div>
+                        <Skeleton loading={loading} width={30} variant='circular'>
+                            <Avatar style={{ display: isSticky ? 'flex' : 'none' }} className={s.stickyAvatar} src={userData?.photoURL} />
+                        </Skeleton>
+                    </div>
                 </Fade>
             </div>
-
         </div>
     );
 }

@@ -79,7 +79,7 @@ const Explore = () => {
                             <Avatar src={user.photoURL} />
                             <div style={{ display: "flex", flexDirection: "column", marginLeft: "10px", }}>
                                 <h5 style={{ margin: "3px" }}>{user.firstName} {user.lastName}</h5>
-                                <p style={{ margin: "3px" }}>@{user.username}</p>
+                                <p style={{ margin: "3px", color: "var(--main-highlight-color)" }}>@{user.username}</p>
                             </div>
                         </div>
                     ))}

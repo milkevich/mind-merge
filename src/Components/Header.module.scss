@@ -3,6 +3,7 @@
     height: 230px;
     position: relative;
     border-bottom: 1px solid var(--border-color);
+    background-color: var(--main-bg-color);
 }
 
 .sticky {
@@ -52,6 +53,28 @@
     border: 5px solid var(--main-bg-color);
 }
 
+.userInfoName {
+    max-width: 900px;
+    white-space: nowrap; 
+    text-overflow: ellipsis;
+    overflow-x: hidden;
+    overflow-y: visible;
+    padding: 10px 0px 10px 20px;
+    margin-top: -10px;
+    padding-right: 80px;
+}
+
+.userInfoUsername {
+    max-width: 900px;
+    white-space: nowrap; 
+    text-overflow: ellipsis;
+    overflow-x: hidden;
+    overflow-y: visible;
+    padding: 10px 0px 10px 20px;
+    padding-right: 80px;
+
+}
+
 .headerButtons {
     position: absolute;
     right: 20px;
@@ -66,15 +89,16 @@
 .userInfoContainer {
     line-height: 0.5;
     margin-top: 70px;
-    padding-left: 20px;
+    padding-left: 0px;
     height: 50px;
+    padding-bottom: 10px;
 }
 
 .stickyAvatar {
     align-self: flex-end;
     margin-left: auto;
     margin-right: 20px;
-    margin-top: -55px;
+    margin-top: -65px;
 }
 
 .userInfoContainer h1 {
@@ -91,12 +115,14 @@
     padding: 20px 20px 20px 20px;
     gap: 20px;
     position: relative;
+    background-color: var(--main-bg-color);
 }
 
 .selectedMedia {
     margin: 20px 20px 20px 80px;
     position: relative;
     max-width: 300px;
+    background-color: var(--main-bg-color);
 }
 
 .selectedMediaIcon {
@@ -183,4 +209,33 @@ img {
     cursor: pointer;
     position: relative;
     top: 10px;
+}
+
+.uploadLinearProgress {
+    background-color: var(--main-bg-color);
+    transition: 0.3s ease-in-out;
+    min-height: 30px;
+    position: relative;
+}
+
+.uploadProgress {
+    margin: 0;
+    padding: 0px;
+    background-color: var(--main-accent-color);
+    white-space: nowrap; 
+    transition: 0.3s ease-in-out;
+    height: 2px;
+    width: 100%;
+    position: relative;
+    top: 13px;
+    overflow: hidden;
+}
+
+.uploadLinearProgress p {
+    position: relative;
+    margin: 12px 0px 0px 20px;
+    color: var(--main-color);
+    z-index: 10000000;
+    font-weight: 600;
+    font-size: 14px;
 }

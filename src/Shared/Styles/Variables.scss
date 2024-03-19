@@ -6,13 +6,18 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 
-    --main-bg-color: rgb(12, 12, 12);
-    --main-bg-color-opacity: rgba(12, 12, 12, 0.8);
+    background-image: url('/src/imgs/bgBackdrop.png');
+    background-size: cover;
+    background-attachment: fixed;
+    transition: 0.3s ease-in-out;
+
+    --main-bg-color: rgb(0, 0, 0);
+    --main-bg-color-opacity: rgba(0, 0, 0, 0.8);
     --main-color: rgb(255, 255, 255);
     --main-highlight-color: #666;
     --main-highlight-bg-color: rgb(34, 34, 34);
     --border-color: rgb(32, 32, 32);
-    --main-accent-color: rgb(100, 168, 252);
+    --main-accent-color: rgb(0, 127, 255);
     --like-btn-color: #ff3040;
 
     background-color: var(--main-bg-color);
@@ -29,11 +34,12 @@
     --main-highlight-color: rgb(34, 34, 34);
     --main-highlight-bg-color: rgb(210, 210, 210);
     --border-color: rgb(225, 225, 225);
-    --main-accent-color: rgb(67, 150, 251);
+    --main-accent-color: rgb(0, 127, 255);
     --like-btn-color: #ff3040;
+
+    background-image: none;
 }
 
 body {
-    padding: 0;
     margin: 0;
 }

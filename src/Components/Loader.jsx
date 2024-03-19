@@ -14,7 +14,10 @@ const Loader = () => {
       backgroundColor: "var(--main-bg-color)",
       left: "0",
       top: "0",
-      zIndex: "100000"
+      zIndex: "100000",
+      backgroundImage: "url('/src/imgs/bgBackdrop.png')",
+      backgroundSize: "cover",
+      backgroundAttachment: "fixed"
     }}>
       <CircularProgress />
     </div>

@@ -18,7 +18,6 @@ const NavigationBar = () => {
   const [isExploreVisible, setIsExploreVisible] = useState(false);
   const navigate = useNavigate();
   const { toggleTheme, isLightMode } = useThemeContext();
-  const exploreRef = useRef(null);
 
   useEffect(() => {
     const getUserData = () => {
@@ -49,6 +48,7 @@ const NavigationBar = () => {
     if (user && userData && userData.username) {
       navigate(`/mind-merge/${userData.username}`);
       setIsExploreVisible(false);
+      setTab('Profile');
     }
   };
 
@@ -114,7 +114,7 @@ const NavigationBar = () => {
         </div>
       </div>
       {isExploreVisible &&
-        <div style={{ position: "fixed", zIndex: "1000", width: "100%", height: "100vh", backgroundColor: "rgba(0, 0, 0, 0.3)", overflow: "hidden", backdropFilter: "blur(3px)" }}>
+        <div style={{ position: "fixed", zIndex: "100", width: "935px", height: "100vh", backgroundColor: "rgba(0, 0, 0, 0.3)", overflow: "hidden", backdropFilter: "blur(1px)"}}>
           <Explore />
         </div>
       }

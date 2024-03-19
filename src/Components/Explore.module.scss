@@ -4,6 +4,8 @@
     min-height: calc(100vh - 2px);
     background-color: var(--main-bg-color);
     z-index: 100;
+    margin: left;
+    margin-left: 65px;
 }
 
 .searchHeader {
@@ -52,4 +54,30 @@
     background-color: var(--main-bg-color);
     min-height: 100vh;
     width: 400px;
+}
+
+@media only screen and (max-width: 490px) {
+    .exploreContainer {
+        max-width: 490px;
+        border-right: 1px solid var(--border-color);
+        min-height: calc(100vh - 2px);
+        background-color: var(--main-bg-color);
+        z-index: 100;
+        margin: 0;
+        margin-left: 0;
+    }
+
+    .searchHeader {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        border-bottom: 1px solid var(--border-color);
+        padding: 20px;
+        background-color: var(--main-bg-color-opacity);
+        position: fixed;
+        backdrop-filter: blur(10px);
+        top: 0;
+        width: calc(100vw - 40px);
+        z-index: 10000;
+    }
 }

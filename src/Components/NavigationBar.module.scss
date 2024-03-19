@@ -5,9 +5,8 @@
     border-left: 1px solid var(--border-color);
     border-right: 1px solid var(--border-color);
     position: fixed;
-    z-index: 100;
+    z-index: 1000;
     background-color: var(--main-bg-color);
-    margin-left: -65px;
 }
 
 .topContainer {
@@ -33,5 +32,34 @@
 }
 
 .containerItem:hover {
-    scale: 0.9;
+    transform: scale(0.9); 
+}
+@media only screen and (max-width: 490px) {
+    .mainContainer {
+        height: 65px;
+        width: 100vw;
+        position: fixed;
+        display: flex;
+        bottom: 0;
+        z-index: 1000;
+        background-color: var(--main-bg-color);
+        flex-direction: row; 
+        justify-content: space-around;
+        align-items: center; 
+        border: none;
+        border-top: 1px solid var(--border-color);
+    }
+
+    .topContainer {
+        display: flex;
+        flex-direction: row; 
+        align-items: center;
+        gap: 50px;
+        margin: 0;
+        scale: 1.2;
+    }
+
+    .bottomContainer {
+        display: none;
+    }
 }

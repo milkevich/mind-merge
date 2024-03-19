@@ -143,10 +143,15 @@ const MindPage = () => {
                         uid: user.uid,
                         firstName: userData.firstName,
                         lastName: userData.lastName,
-                        photoURL: user.photoURL
+                        photoURL: user.photoURL,
+                        username: userData.username,
                     },
                     content: commentContent,
                     date: Timestamp.now(),
+                });
+
+                await updateDoc(mindDocRef, {
+                    commentsCount: increment(1)
                 });
 
                 console.log("Comment added successfully");
@@ -207,7 +212,7 @@ const MindPage = () => {
     };
 
     return (
-        <>
+        <div style={{overflow: "hidden"}}>
             {selectedMind && (
                 <Fade in={isPopupOpen} onChange={handleClosePopup}>
                     <div className={`${s.sharePopUpContainer} ${isPopupOpen ? s.slideIn : s.slideOut}`}>
@@ -239,34 +244,20 @@ const MindPage = () => {
                     </div>
                 </Fade>
             )}
-            <p onClick={goBack} style={{ display: "flex", alignItems: "center", marginLeft: "20px", position: "fixed", cursor: "pointer" }}><HiIcons.HiArrowNarrowLeft style={{ marginRight: "20px" }} /> Go Back</p>
-            <div style={{ display: "flex", maxWidth: mind?.img ? "1200px" : "600px", margin: "auto" }}>
+            <div style={{ display: "flex", maxWidth: mind?.img ? "1200px" : "600px", margin: "auto", minHeight: "100vh" }}>
                 {mind?.img && (
-                    <div style={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        width: "100%",
-                        maxWidth: "600px",
-                        maxHeight: "100vh",
-                        overflow: "hidden",
-                        position: "sticky",
-                        top: "0",
-                        border: "1px solid var(--border-color)",
-                        boxSizing: "border-box",
-                        borderRight: "none"
-                    }}>
+                    <div className={s.mindPageImgContainer}>
                         <img src={mindImg} alt="Mind Image" style={{
-                            maxWidth: "100%",
+                            width: "100%",  
                             height: "auto",
-                            width: "auto",
                             display: "block"
                         }} />
                     </div>
                 )}
 
-                <div style={{ maxWidth: "600px", margin: "auto", border: "1px solid var(--border-color)", borderBottom: "none" }}>
-                    <div style={{ position: "sticky", width: "560px", top: "0", backgroundColor: "var(--main-bg-color)", zIndex: "100", borderBottom: "none" }} className={s.postContainer}>
+                <div style={{ width: "600px", margin: "auto", border: "1px solid var(--border-color)", borderBottom: "none", height: "100vh", overflow: "scroll" }}>
+                    <div style={{ position: "sticky", maxWidth: "560px", top: "0", backgroundColor: "var(--main-bg-color)", zIndex: "100", borderBottom: "none" }} className={s.postContainer}>
+                        <HiIcons.HiChevronLeft onClick={goBack} style={{ display: "flex", alignItems: "center", cursor: "pointer", scale: "2", marginRight: "20px", marginTop: "13px" }} />
                         <Avatar style={{ cursor: "pointer" }} onClick={() => navigate(`/mind-merge/${mind.author.username}`)} className={s.postAvatar} src={mind.author.photoURL} />
                         <div onClick={() => navigate(`/mind-merge/${mind.author.username}`)} style={{ cursor: "pointer" }} className={s.postContent}>
                             <div style={{ display: "flex", alignItems: "end" }}>
@@ -277,14 +268,14 @@ const MindPage = () => {
                         </div>
                     </div>
                     <div style={{ backgroundColor: "var(--main-bg-color)", zIndex: "90", borderTop: "none", paddingTop: "0", paddingLeft: "80px", marginTop: "-20px", }} className={s.postContainer}>
-                        <p style={{whiteSpace: "pre-line"}}>{mind.text}</p>
+                    <p style={{ wordWrap: "break-word", maxWidth: "200px" }}>{mind.text}</p>
                     </div>
-                    <div style={{ minHeight: "100vh", overflow: "scroll" }} className={s.feedContainer}>
+                    <div style={{  overflow: "scroll", maxHeight: "100%" }} className={s.feedContainer}>
                         {comments.map((comment, index) => (
                             <div className={s.postContainer} key={comment.id}>
-                                <Avatar onClick={() => navigate(`/mind-merge/${mind.author.username}`)} style={{ cursor: "pointer" }} className={s.postAvatar} src={comment.author.photoURL} />
+                                <Avatar onClick={() => navigate(`/mind-merge/${comment.author.username}`)} style={{ cursor: "pointer" }} className={s.postAvatar} src={comment.author.photoURL} />
                                 <div className={s.postContent}>
-                                    <div onClick={() => navigate(`/mind-merge/${mind.author.username}`)} style={{ display: "flex", alignItems: "end", cursor: "pointer" }}>
+                                    <div onClick={() => navigate(`/mind-merge/${comment.author.username}`)} style={{ display: "flex", alignItems: "end", cursor: "pointer" }}>
                                         <h5 className={s.postContentUser}>{comment.author.firstName} {comment.author.lastName}</h5>
                                         <span className={s.postContentDate}>{comment.relativeTime}</span>
                                     </div>
@@ -293,12 +284,12 @@ const MindPage = () => {
                             </div>
                         ))}
                     </div>
-                    <div className={s.postPageInputContainer}>
+                    <div style={{ maxWidth: "578px", paddingLeft: "20px"}} className={s.postPageInputContainer}>
                         <div className={s.inputContainer}>
                             <input placeholder="What do you think?" value={commentContent} onChange={(e) => setCommentContent(e.target.value)} type="text" />
                             <p style={{ cursor: "pointer" }} onClick={handleAddComment}>Share</p>
                         </div>
-                        <div style={{ display: "flex", padding: " 0px 20px 5px 20px", alignItems: "center" }}>
+                        <div style={{ display: "flex", padding: " 0px 20px 5px 3px", alignItems: "center" }}>
                             <div style={{ display: "flex", flex: "1" }}>
                                 <p style={{ alignItems: "center", display: "flex" }}>
                                     {liked[mindId] ?
@@ -318,7 +309,7 @@ const MindPage = () => {
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     );
 
 };

@@ -1,7 +1,8 @@
 .feedContainer {
-    min-height: calc(100vh - 320px);
+    min-height: calc(100vh - 230px);
     max-width: 935px;
     height: 100%;
+    background-color: var(--main-bg-color);
 }
 
 .postContainer {
@@ -11,18 +12,30 @@
     border-bottom: 1px solid var(--border-color);
     max-width: 900px;
     z-index: 10;
+    overflow: scroll;
 }
 
 .postContent {
     margin-top: -30px;
     margin-left: 20px;
-    width: 100%;
+    width: calc(100% - 60px);
 }
 
 .postContentUser {
     font-size: 16px;
     margin-bottom: -10px;
     flex: 1;
+    max-width: 800px;
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis;
+}
+
+.postContentUsername {
+    max-width: 800px;
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis;
 }
 
 .postContentDate {
@@ -30,6 +43,7 @@
     margin-right: 4px;
     text-align: end;
     color: var(--main-highlight-color);
+    flex: 2;
 }
 
 .postActivityContainer {
@@ -37,6 +51,7 @@
     gap: 5px;
     align-items: center;
     margin-top: -10px;
+    width: 100%;
 }
 
 .postActivityItem {
@@ -60,7 +75,8 @@
     display: flex;
     height: 25px;
     align-items: center;
-    padding: 20px;
+    padding: 20px 20px 10px 0px;
+    flex: 1;
 }
 
 .inputContainer input {
@@ -74,7 +90,10 @@
 .inputContainer p {
     padding-left: 10px;
     color: var(--main-accent-color);
+    flex: 0 0 auto;    
+    text-align: end;
 }
+
 .sharePopUpContainer {
     position: fixed;
     top: 0;
@@ -90,12 +109,129 @@
 }
 
 .sharePopUp {
-    width: 600px;
+    max-width: 600px;
     max-height: 400px;
     background-color: var(--main-bg-color);
     border: 1px solid var(--border-color);
     border-radius: 5px;
     padding: 5px;
+}
+
+.mindPageImgContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 600px;
+    max-height: 100vh;
+    overflow: hidden;
+    position: sticky;
+    top: 0;
+    border: 1px solid var(--border-color);
+    box-sizing: border-box;
+    border-right: none;
+    background-color: var(--main-bg-color);
+}
+
+
+@media only screen and (max-width: 1200px) {
+    .mindPageImgContainer {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 690px) {
+    .sharePopUp {
+        max-width: 400px;
+    }
+
+    .deleteContainer {
+        max-width: 390px;
+        margin: 0;
+    }
+}
+
+@media only screen and (max-width: 490px) {
+    .sharePopUp {
+        width: 350px;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .mindImg {
+        max-width: 250px;
+        max-height: 600px;
+        border-radius: 5px;
+        margin-top: 20px;
+    }
+
+    .mindImgContainer {
+        max-width: 250px;
+        max-height: 600px;
+        border-radius: 5px;
+        margin-top: 20px;
+    }
+
+    .postActivityItem {
+        font-size: 18px;
+        cursor: pointer;
+        scale: 1.3;
+    }
+
+    .deleteContainer {
+        max-width: 330px;
+        font-size: 14px;
+    }
+
+    .sharePopUp {
+        width: 300px;
+    }
+}
+
+@media only screen and (max-width: 350px) {
+    .mindImg {
+        max-width: 230px;
+        max-height: 600px;
+        border-radius: 5px;
+        margin-top: 20px;
+    }
+
+    .mindImgContainer {
+        max-width: 230px;
+        max-height: 600px;
+        border-radius: 5px;
+        margin-top: 20px;
+    }
+
+    .deleteContainer {
+        max-width: 290px;
+        font-size: 12px;
+    }
+
+    .sharePopUp {
+        width: 250px;
+    }
+}
+
+@media only screen and (max-width: 330px) {
+    .mindImg {
+        max-width: 200px;
+        max-height: 600px;
+        border-radius: 5px;
+        margin-top: 20px;
+    }
+
+    .mindImgContainer {
+        max-width: 200px;
+        max-height: 600px;
+        border-radius: 5px;
+        margin-top: 20px;
+    }
+
+    .deleteContainer {
+        max-width: 260px;
+        font-size: 16px;
+    }
 }
 
 .hoverFade:hover {
@@ -108,6 +244,7 @@
     align-items: end;
     cursor: pointer;
     color: var(--main-color);
+    max-width: 100%;
 }
 
 .postContentUsername {
@@ -115,9 +252,9 @@
 }
 
 .postPageInputContainer {
-    position: sticky;
+    position: fixed;
     bottom: 0px;
-    width: 600px;
+    width: calc(100% - 22px);
     border: 1px solid var(--border-color);
     border-bottom: 1px solid var(--border-color);
     background-color: var(--main-bg-color);
@@ -168,4 +305,124 @@
     bottom: calc(50% - 45px);
     left: calc(50% - 45px);
     transition: 0.3s ease-in-out;
+}
+
+.optionButton {
+    display: flex;
+    position: absolute;
+    right: 35px;
+    top: -10px;
+    background-color: var(--main-bg-color);
+    padding: 10px 20px 10px 15px;
+    outline: none;
+    border: 1px solid var(--border-color);
+    color: var(--main-color);
+    border-radius: 5px;
+    align-items: center;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+.optionButton:hover {
+    background-color: var(--main-highlight-bg-color);
+    scale: 0.9;
+}
+
+.deleteBackdrop {
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    margin: auto;
+    z-index: 100000;
+    background-color: rgba(0, 0, 0, 0.6);
+    top: 0;
+    left: 0;
+    backdrop-filter: blur(3px);
+}
+
+.deleteContainer {
+    width: 500px;
+    margin: auto;
+    padding: 5px 0px 0px 0px;
+    background-color: var(--main-bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    position: relative;
+    top: calc(50% - 150px);
+}
+
+.deleteContainer p {
+    font-weight: 600;
+    padding: 0px 20px 10px 20px;
+    text-align: center;
+    line-height: 1.8;
+}
+
+.deleteContainer span {
+    color: var(--main-highlight-color);
+    font-weight: 400;
+}
+
+.btnsContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.deleteBtn {
+    padding: 15px;
+    background-color: var(--main-bg-color);
+    color: var(--like-btn-color);
+    outline: none;
+    border: none;
+    border-top: 1px solid var(--border-color);
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.cancelBtn {
+    padding: 15px 15px 15px 15px;
+    background-color: var(--main-bg-color);
+    color: var(--main-color);
+    outline: none;
+    border: none;
+    border-top: 1px solid var(--border-color);
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.deleteBtn:hover, .cancelBtn:hover {
+    background-color: var(--main-highlight-bg-color);
+}
+
+.sortContainer {
+    padding: 10px 20px 10px 20px;
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    z-index: 99;
+    background-color: var(--main-bg-color-opacity);
+    backdrop-filter: blur(3px);
+}
+
+.sortOptionsContainer {
+    background-color: var(--main-bg-color);
+    width: 100px;
+    text-align: center;
+    border-radius: 5px;
+    border: 1px solid var(--border-color);
+    border-bottom: none;
+    position: absolute;
+    z-index: 1000;
+    margin-top: 20px;
+}
+
+.sortOptionsContainer p {
+    padding: 10px;
+    margin: 0;
+    border-bottom: 1px solid var(--border-color);
+    cursor: pointer;
+}
+
+.sortOptionsContainer p:hover {
+    background-color: var(--main-highlight-bg-color);
 }
